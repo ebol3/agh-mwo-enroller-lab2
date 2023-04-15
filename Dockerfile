@@ -6,7 +6,6 @@ ADD . $HOME
 RUN mvn package
 
 FROM amazoncorretto:17
-
 ARG JAR_FILE=/usr/app/target/enroller-0.0.1-SNAPSHOT.jar
 COPY --from=build ${JAR_FILE} app.jar
 ADD enroller.db enroller.db
