@@ -71,4 +71,20 @@ public class MeetingService {
 		return query.list().size() != 0;
 	}
 
+    public void addParticipantToMeeting(Meeting meeting, Participant participant) {
+		Transaction transaction = session.beginTransaction();
+		if (!meeting.getParticipants().contains(participant)){
+			meeting.addParticipant(participant);
+		}
+    }
+
+	public void removeParticipantFromMeeting(Meeting meeting, Participant participant) {
+		Transaction transaction = session.beginTransaction();
+		if (meeting.getParticipants().contains(participant)){
+			meeting.removeParticipant(participant);
+		}
+		session.save(participant);
+		session.save(meeting);
+		transaction.commit();
+	}
 }
